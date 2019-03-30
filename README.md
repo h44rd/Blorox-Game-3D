@@ -1,16 +1,16 @@
-#1 Block game
+# Block game
 
 Controls:
 Use arrow keys to move the Block
 
 Views can be change with number keys from 1 to 5, both included
-1.Block view
-2.Top view
-3.Tower view(default)
-4.Follow view
-5.Helicopter view
-	*Use mouse to move to look around
-	*Use w,a,s,d keys to move the camera
+1. Block view
+2. Top view
+3. Tower view(default)
+4. Follow view
+5. Helicopter view
+	* Use mouse to move to look around
+	* Use w,a,s,d keys to move the camera
 
 You can toggle between orthographic and perspective views by pressing 'k'.
 
