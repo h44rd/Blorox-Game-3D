@@ -56,6 +56,7 @@ ISoundEngine* engine;
 //camera
 double mouse_x,mouse_y;
 double camx,camy,camz,r,theta,phi;
+double cam_rev_speed;
 bool firstMouse = true;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -67,6 +68,7 @@ GLuint WIDTH =800,HEIGHT=800;
 GLfloat lastX  =   WIDTH / 2.0;
 GLfloat lastY  =  HEIGHT / 2.0;
 GLfloat fov =  45.0f;
+double color_change_speed;
 bool keys[1024];
 float fallz=0;
 float triangle_rot_dir = 1;
@@ -76,7 +78,7 @@ bool cube_rot_status = true;
 float zoom=1;
 int orthpers=0;
 int fell=0;
-float falltime=4,startFall=-1;
+float falltime=50,startFall=-1;
 GLuint programID;
 GLuint programIDcube;
 GLuint lightPosID ;
@@ -910,7 +912,7 @@ void gameover()
     else if(current_time-startFall <= falltime)
     {
     //    cout<<current_time<<" "<<startFall<<endl;
-        fallz-=0.07;
+        fallz-=0.007;
     }
     else
     {
@@ -1088,8 +1090,10 @@ void scaleMouse(double &x,double &y)
 char title[100];
 char time1[10];
 char move1[10];
+double addOne;
 void draw (GLFWwindow* window)
 {
+    double deltaT=current_time - last_update_time;
   camMov(window);
   //glfwGetCursorPos(window, &mouse_x, &mouse_y);
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1185,11 +1189,17 @@ void draw (GLFWwindow* window)
   }
   // draw3DObject draws the VAO given to it using current MVP matrix
   // Increment angles
-  colorTheta2 = colorTheta2 + 0.7;
+  colorTheta2 = colorTheta2 + deltaT*color_change_speed;
   colorTheta=(int(colorTheta2))%360;
   float increments = 1;
+
   if(SunRev==1)
-    camera_rotation_angle=(int(camera_rotation_angle)+1)%360; // Simulating camera rotation
+    if(addOne >= 1) {
+        camera_rotation_angle=(int(camera_rotation_angle)+1)%360;
+        addOne = 0; // Simulating camera rotation
+    }
+    else
+        addOne += deltaT*cam_rev_speed;
   //cube_rotation = cube_rotation + increments*cube_rot_dir*cube_rot_status;
 }
 
@@ -1237,7 +1247,7 @@ GLFWwindow* initGLFW (int width, int height)
     glfwSetScrollCallback(window, scroll_callback);
     /* Register function to handle mouse click */
     glfwSetMouseButtonCallback(window, mouseButton);  // mouse button clicks
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     return window;
 }
 
@@ -1272,6 +1282,8 @@ void initGL (GLFWwindow* window, int width, int height)
     engine = createIrrKlangDevice();
 	reshapeWindow (window, width, height);
 
+    cam_rev_speed = 10;
+    color_change_speed = 50;
     // Background color of the scene
 	glClearColor (0.3f, 0.3f, 0.3f, 0.0f); // R, G, B, A
 	glClearDepth (1.0f);
