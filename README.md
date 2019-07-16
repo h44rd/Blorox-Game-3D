@@ -1,7 +1,5 @@
 # Block game
 
-Demo: https://youtu.be/cZ9ZZaWxsdg
-
 Controls:
 Use arrow keys to move the Block
 
@@ -34,3 +32,10 @@ Day and Night:
 Additional levels:
     If a player passes a level, he/she progresses to the next level which has more difficulty and more amount of tiles.
     You can also press 'l' to get to other levels.
+
+After installing the dependencies, run using:
+```
+make
+
+./sample2D
+```

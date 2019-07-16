@@ -78,7 +78,7 @@ bool cube_rot_status = true;
 float zoom=1;
 int orthpers=0;
 int fell=0;
-float falltime=50,startFall=-1;
+float falltime=3,startFall=-1;
 GLuint programID;
 GLuint programIDcube;
 GLuint lightPosID ;
@@ -902,6 +902,8 @@ int checkIfTheEffingBlockIsOnTheBoard()
 }
 void gameover()
 {
+    cout<<"Inside gameover"<<endl;
+    cout<<current_time - startFall<<"\t"<<fell;
     if(startFall==-1 && fell==1)
     {
         //cout<<"played"<<endl;
@@ -917,6 +919,7 @@ void gameover()
     else
     {
     //    cout<<"Third: "<<current_time<<" "<<startFall<<endl;
+        cout<<"Starting new game"<<endl;
         startFall=-1;
         fell=0;
         newGame();
@@ -1247,7 +1250,7 @@ GLFWwindow* initGLFW (int width, int height)
     glfwSetScrollCallback(window, scroll_callback);
     /* Register function to handle mouse click */
     glfwSetMouseButtonCallback(window, mouseButton);  // mouse button clicks
-    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     return window;
 }
 
