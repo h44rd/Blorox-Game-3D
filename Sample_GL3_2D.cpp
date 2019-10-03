@@ -16,7 +16,7 @@ using namespace irrklang;
 void rotInit(int);
 void gameover();
 void rotatecube();
-int checkIfTheEffingBlockIsOnTheBoard();
+int checkIfBlockIsOnTheBoard();
 void increaseLevel();
 int checkPres(int,int);
 void changeCam(int);
@@ -837,12 +837,12 @@ void rotatecube()
                 }
             }
         //    cout<<"X: "<<BlockInfo.x<<" Y: "<<BlockInfo.y<<endl;
-            checkIfTheEffingBlockIsOnTheBoard();
+            checkIfBlockIsOnTheBoard();
         //    BlockInfo.orientation=Z-1;
         }
 }
 
-int checkIfTheEffingBlockIsOnTheBoard()
+int checkIfBlockIsOnTheBoard()
 {
     int stat=0;
     if(BlockInfo.x==board.width-1 && BlockInfo.y==board.length-1)
@@ -1128,7 +1128,7 @@ void draw (GLFWwindow* window)
   {
       rotatecube();
   }
- // checkIfTheEffingBlockIsOnTheBoard();
+ // checkIfBlockIsOnTheBoard();
   glm::mat4 MVP;
   Matrices.model = glm::mat4(1.0f);
   glm::mat4 translatecube;
